@@ -4,6 +4,7 @@ import { removeTodo, editTodo, toggleCompleted } from "../redux/features/todo/to
 
 function TaskList() {
   const todos = useSelector((state) => state.todos);
+  console.log("todos", todos);
   const dispatch = useDispatch();
 
   return (

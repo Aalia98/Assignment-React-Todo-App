@@ -1,7 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-  todos: [{ id: 1, text: "Learn React.js", isCompleted: false }],
+  todos: JSON.parse(localStorage.getItem('todos')) || [],
   todoToEdit: null,
 };
 
@@ -17,6 +17,8 @@ export const todoSlice = createSlice({
         isCompleted: false
       };
       state.todos.push(todo);
+    //   save in local storage
+    localStorage.setItem("todos", JSON.stringify(state.todos))
     },
     // delete todo
     removeTodo: (state, action) => {
@@ -24,6 +26,7 @@ export const todoSlice = createSlice({
         (todo) => todo.id === action.payload
       );
       state.todos.splice(findIndex, 1);
+      localStorage.setItem("todos", JSON.stringify(state.todos))
     },
     // find todo
     editTodo: (state, action) => {
@@ -37,6 +40,7 @@ export const todoSlice = createSlice({
           : todo
       );
       state.todoToEdit = null;
+      localStorage.setItem("todos", JSON.stringify(state.todos))
     },
     // toggle todo is completed
     toggleCompleted: (state, action) => {
@@ -45,6 +49,7 @@ export const todoSlice = createSlice({
             ? { ...todo, isCompleted: !todo.isCompleted }
             : todo
         );
+        localStorage.setItem("todos", JSON.stringify(state.todos))
       },
   },
 });
